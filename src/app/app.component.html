@@ -1,7 +1,24 @@
-<h3>Angular Core Fundamentals</h3>
+<mat-toolbar color="primary">Angular Core Fundamentals</mat-toolbar>
 
-<app-ang-basics></app-ang-basics>
-<!-- 
+<!-- <app-ang-basics></app-ang-basics> -->
+<!--
 <p>Let's try to reuse this again</p>
 
 <app-ang-basics></app-ang-basics> -->
+<!-- User custom input component (Using Angular material UI), Pass property in the component -->
+<!-- <div class="main-container">
+  <custom-input input-label="Enter your name"></custom-input>
+  <br>
+  <custom-input input-label="Enter your email"></custom-input>
+</div> -->
+
+<input type="text" [(ngModel)]="userInput">
+<button (click)="onClick()">Add</button>
+<br>
+
+<input type="text" [(ngModel)]="rUserInput">
+<button (click)="remove()">Remove</button>
+
+<ul>
+  <li *ngFor="let name of names">{{name}}</li>
+</ul>
