@@ -1,4 +1,13 @@
 .main-container {
   width: 70%;
   margin: auto;
+  padding-top: 20px;
+}
+
+.green {
+  color: green
+}
+
+.red {
+  color: red
 }

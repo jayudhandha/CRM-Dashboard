@@ -3,22 +3,24 @@
 <!-- <app-ang-basics></app-ang-basics> -->
 <!--
 <p>Let's try to reuse this again</p>
+-->
 
-<app-ang-basics></app-ang-basics> -->
+<app-ang-basics></app-ang-basics>
 <!-- User custom input component (Using Angular material UI), Pass property in the component -->
-<!-- <div class="main-container">
-  <custom-input input-label="Enter your name"></custom-input>
+
+<!-- <custom-input input-label="Enter your name"></custom-input>
   <br>
-  <custom-input input-label="Enter your email"></custom-input>
+  <custom-input input-label="Enter your email"></custom-input> -->
+
+<!-- <div class="main-container">
+  <button (click)="show = !show">{{ show ? "hide" : "show" }}</button>
+  <p [ngClass]="{ 'green': show, 'red': !show }">show = {{ show }}</p>
+
+  <br />
+  <div *ngIf="show; else elseBlock">Text to show</div>
+
+  <ng-template #elseBlock>
+    Alternate text while primary text is hidden
+  </ng-template>
 </div> -->
 
-<input type="text" [(ngModel)]="userInput">
-<button (click)="onClick()">Add</button>
-<br>
-
-<input type="text" [(ngModel)]="rUserInput">
-<button (click)="remove()">Remove</button>
-
-<ul>
-  <li *ngFor="let name of names">{{name}}</li>
-</ul>
