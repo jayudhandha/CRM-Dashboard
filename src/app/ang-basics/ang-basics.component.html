@@ -20,7 +20,14 @@
 <input type="text" [(ngModel)]="rUserInput" />
 <button (click)="remove()">Remove</button> -->
 
+<!-- Pipes -->
 <ul>
-  <li *ngFor="let name of names">{{ name }}</li>
+  <!-- <li *ngFor="let name of names">{{ name | lowercase }}</li> -->
   <!-- <li *ngFor="let name of getStudentNames()">{{ name }}</li> -->
+  <!-- {{6589.23 | currency:"USD"}} -->
+  <!-- Piping with dates -->
+  <!-- 26th May 2020 -->
+  <!-- 26-05-2020 -->
+  <!-- 6500.5678 -->
+  <!-- {{todaydate | date:'y/M/d'}} -->
 </ul>

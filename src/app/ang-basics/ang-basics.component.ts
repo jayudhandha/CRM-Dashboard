@@ -8,7 +8,7 @@ import { ManageNamesService } from '../manage-names.service';
 })
 export class AngBasicsComponent implements OnInit {
   name = '';
-
+  todaydate = new Date()
   names = [];
   userInput = '';
   rUserInput = '';
