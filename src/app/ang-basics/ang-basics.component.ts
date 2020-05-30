@@ -12,19 +12,21 @@ export class AngBasicsComponent implements OnInit {
   names = [];
   userInput = '';
   rUserInput = '';
+  students = [];
+
 
   constructor(private nameService : ManageNamesService) {}
 
   ngOnInit(): void {
     // console.log('ngOnInit is called...');
-    this.names = this.nameService.getNames()
+    this.nameService.getNames().subscribe(data => this.students = data);
   }
 
   // getStudentNames() {
   //   return this.nameService.getNames();
   // }
 
-  onSubmit() {
+  onSubmit(student) {
     window.alert('Button clicked: ' + this.name);
     console.log('Hello ');
   }

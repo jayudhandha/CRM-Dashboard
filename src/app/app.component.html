@@ -1,11 +1,30 @@
-<mat-toolbar color="primary">Angular Core Fundamentals</mat-toolbar>
+<mat-toolbar color="primary">Angular Core Fundamentals
+  <a routerLink="student" style="padding: 0px 20px;">Student</a>
+  <a routerLink="faculty">Faculty</a>
+</mat-toolbar>
+
+<!-- <h3>With RouterLink</h3>
+<a routerLink="student">Student</a>
+<br>
+<a routerLink="faculty">Faculty</a>
+<br>
+<br>
+<br> -->
+<!--
+<h3>With Href</h3>
+<a href="student">Student</a>
+<br>
+<a href="faculty">Faculty</a>
+<br> -->
+
+<router-outlet></router-outlet>
 
 <!-- <app-ang-basics></app-ang-basics> -->
 <!--
 <p>Let's try to reuse this again</p>
 -->
 
-<app-ang-basics></app-ang-basics>
+<!-- <app-ang-basics></app-ang-basics> -->
 <!-- User custom input component (Using Angular material UI), Pass property in the component -->
 
 <!-- <custom-input input-label="Enter your name"></custom-input>
