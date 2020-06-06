@@ -1,7 +1,21 @@
 const express = require('express')
+const mongoose = require('mongoose')
 var bodyParser = require('body-parser')
 const exApp = express()
+const Student = require('./models/student')
 
+const uri = 'mongodb+srv://<USER>:<PASS>@mean-cluster-02u1x.mongodb.net/marwadi?retryWrites=true&w=majority'
+
+mongoose
+  .connect(
+    uri
+  )
+  .then(() => {
+    console.log("Connected to database!");
+  })
+  .catch(() => {
+    console.log("Connection failed!");
+  });
 // create application/json parser
 var jsonParser = bodyParser.json()
 
@@ -10,6 +24,34 @@ exApp.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', "*")
   next();
 })
+
+exApp.post('/api/addStudent', jsonParser, (req, res) => {
+  const std = new Student({
+    name : req.body.name,
+    branch : req.body.branch
+  })
+ 
+  console.log('Saving...')
+  
+  std.save().then(createdStudent => {
+    console.log('Saved successfully... : ' + JSON.stringify(createdStudent))
+      res.status(201).json({
+        message: "Student added successfully",
+        studentId: createdStudent._id
+      });
+    });
+  
+  console.log('Code running...')
+  
+})
+
+exApp.get('/api/listStudents', (req, res) => {
+  Student.find().then(students => {
+    res.status(200).json(students);
+  })
+})
+
+// Update & Delete
 
 exApp.get('/api/student', (req, res) => {
     students = [
