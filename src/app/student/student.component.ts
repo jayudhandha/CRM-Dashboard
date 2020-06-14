@@ -10,6 +10,8 @@ export class StudentComponent implements OnInit {
 
   students = [];
 
+  panelOpenState = false;
+
   constructor(private nameService: ManageNamesService) { }
 
   ngOnInit(): void {

@@ -1,3 +1,23 @@
-<ul>
-  <li *ngFor="let item of students">{{item.id}}  {{item.name}} {{item.branch}}</li>
-</ul>
+<mat-accordion>
+
+  <mat-expansion-panel style="margin-bottom: 20px;" *ngFor="let item of students" (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Marwadi's Brilliant Student: {{item.name}}
+      </mat-panel-title>
+      <mat-panel-description>
+        <p *ngIf="panelOpenState; else elseBlock">Click to Hide</p>
+        <ng-template #elseBlock>Click here to see student data</ng-template>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>Name: {{item.name}}</p>
+    <p>Branch: {{item.branch}}</p>
+    <!-- <ul>
+      <li *ngFor="let item of students">{{item.name}} {{item.branch}}</li>
+    </ul> -->
+    <mat-action-row>
+      <button mat-button color="warn">Delete</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>

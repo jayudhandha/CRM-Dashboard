@@ -11,3 +11,12 @@
 .red {
   color: red
 }
+
+div > a {
+  text-decoration: none;
+  color: white;
+}
+
+.header-items {
+  width: 50%;
+}

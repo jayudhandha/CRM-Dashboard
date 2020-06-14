@@ -15,14 +15,15 @@ export class ManageNamesService {
   }
 
   getStudents() : Observable<student[]> {
-    return this.http.get<student[]>('http://localhost:3000/api/student')
+    return this.http.get<student[]>('http://localhost:3000/api/listStudents')
   }
 
-  getFaculty() : Observable<faculty[]> {
-    return this.http.get<faculty[]>('http://localhost:3000/api/faculty')
-  }
-
-  updateNames(name) {
-
+  addStudent(name, branch) {
+    const studentObj : student = {
+      id: null,
+      name: name,
+      branch: branch
+    }
+    return this.http.post('http://localhost:3000/api/addStudent', studentObj);
   }
 }

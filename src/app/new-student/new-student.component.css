@@ -1,0 +1,13 @@
+.card-container {
+  width: 40%;
+  margin: auto;
+}
+
+.header-avatar {
+  background-image: url('https://www.marwadiuniversity.ac.in/wp-content/uploads/2017/06/loader-1.png');
+  background-size: cover;
+}
+
+.card-header {
+  margin-bottom: 20px;
+}

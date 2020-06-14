@@ -11,8 +11,11 @@ import {MatInputModule} from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
 import { StudentComponent } from './student/student.component';
-import { FacultyComponent } from './faculty/faculty.component';
 import { AppRoutingModule } from './app-routing.module';
+import { NewStudentComponent } from './new-student/new-student.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,7 @@ import { AppRoutingModule } from './app-routing.module';
     AngBasicsComponent,
     CustomInputComponent,
     StudentComponent,
-    FacultyComponent
+    NewStudentComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,10 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserAnimationsModule,
     MatToolbarModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatCardModule,
+    MatButtonModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

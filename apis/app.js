@@ -4,7 +4,23 @@ var bodyParser = require('body-parser')
 const exApp = express()
 const Student = require('./models/student')
 
-const uri = 'mongodb+srv://<USER>:<PASS>@mean-cluster-02u1x.mongodb.net/marwadi?retryWrites=true&w=majority'
+// Middleware
+exApp.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', "*")
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PATCH, PUT, DELETE, OPTIONS"
+  );
+  next();
+})
+
+// const uri = 'mongodb+srv://<USER>:<PASS>@mean-cluster-02u1x.mongodb.net/marwadi?retryWrites=true&w=majority'
+
+const uri = 'mongodb+srv://kod:iWWKEZEpJd674WUj@cluster0-02u1x.mongodb.net/marwadi?retryWrites=true&w=majority'
 
 mongoose
   .connect(
@@ -19,20 +35,14 @@ mongoose
 // create application/json parser
 var jsonParser = bodyParser.json()
 
-// Middleware
-exApp.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', "*")
-  next();
-})
 
 exApp.post('/api/addStudent', jsonParser, (req, res) => {
+  console.log("******* Save student... : " + JSON.stringify(req.body));
   const std = new Student({
     name : req.body.name,
     branch : req.body.branch
   })
- 
-  console.log('Saving...')
-  
+
   std.save().then(createdStudent => {
     console.log('Saved successfully... : ' + JSON.stringify(createdStudent))
       res.status(201).json({
@@ -40,36 +50,17 @@ exApp.post('/api/addStudent', jsonParser, (req, res) => {
         studentId: createdStudent._id
       });
     });
-  
-  console.log('Code running...')
-  
+
 })
 
 exApp.get('/api/listStudents', (req, res) => {
+  console.log("Get Reuqest happened...");
   Student.find().then(students => {
     res.status(200).json(students);
   })
 })
 
 // Update & Delete
-
-exApp.get('/api/student', (req, res) => {
-    students = [
-      {id: "1", name:"Bhaumik", branch: "ICT"},
-      {id: "2", name:"Rutvik", branch: "ICT"},
-      {id: "3", name:"Nipun", branch: "AWS"},
-    ];
-    res.status(200).send(students);
-})
-
-exApp.get('/api/faculty', (req, res) => {
-  faculties = [
-    {id: "1", name:"CDP Sir", branch: "ICT"},
-    {id: "2", name:"Zala Sir", branch: "ICT"},
-    {id: "3", name:"Kartik Sir", branch: "ICT"},
-  ];
-  res.status(200).send(faculties);
-})
 
 exApp.get('/api/student/:id', (req, res) => {
   students = [
@@ -82,11 +73,6 @@ exApp.get('/api/student/:id', (req, res) => {
     student.id == req.params.id
   );
   res.status(200).send(foundStudent);
-})
-
-exApp.post('/api/student', jsonParser, (req, res) => {
-  console.log('Passed body : ' + JSON.stringify(req.body));
-  res.status(200).send(req.body)
 })
 
 module.exports = exApp
