@@ -37,14 +37,12 @@ var jsonParser = bodyParser.json()
 
 
 exApp.post('/api/addStudent', jsonParser, (req, res) => {
-  console.log("******* Save student... : " + JSON.stringify(req.body));
   const std = new Student({
     name : req.body.name,
     branch : req.body.branch
   })
 
   std.save().then(createdStudent => {
-    console.log('Saved successfully... : ' + JSON.stringify(createdStudent))
       res.status(201).json({
         message: "Student added successfully",
         studentId: createdStudent._id
@@ -53,15 +51,58 @@ exApp.post('/api/addStudent', jsonParser, (req, res) => {
 
 })
 
+exApp.put('/api/:id', jsonParser, (req, res) => {
+  console.log("name: " + req.body.name)
+  console.log("branch: " + req.body.branch)
+  const std = new Student({
+    _id: req.params.id,
+    name : req.body.name,
+    branch : req.body.branch
+  })
+
+  Student.updateOne({_id: req.params.id}, std).then(updatedStudent => {
+    console.log('Updated successfully... : ' + JSON.stringify(updatedStudent))
+      res.status(201).json({
+        message: "Student updated successfully"
+      });
+    });
+
+})
+
 exApp.get('/api/listStudents', (req, res) => {
-  console.log("Get Reuqest happened...");
-  Student.find().then(students => {
+  console.log(req.query)
+  const pageSize = +req.query.pagesize
+  const pageIndex = +req.query.pageindex
+  const stdQuery = Student.find()
+
+  if(pageSize && pageIndex) {
+    stdQuery
+      .skip(pageSize * (pageIndex - 1))
+      .limit(pageSize)
+  }
+
+  stdQuery.then(students => {
     res.status(200).json(students);
   })
 })
 
-// Update & Delete
+exApp.get('/api/:id', (req, res) => {
+  Student.findOne({_id: req.params.id}).then(student => {
+    res.status(200).json(student);
+  })
+})
 
+exApp.delete('/api/:id', (req, res) => {
+  Student.deleteOne({_id: req.params.id}).then(updatedStudent => {
+    console.log(updatedStudent);
+    res.status(201).json({
+      message: "Student deleted successfully",
+      studentId: updatedStudent._id
+    });
+  })
+})
+
+// Below method is added only for understanding purpose
 exApp.get('/api/student/:id', (req, res) => {
   students = [
     {id: "1", name:"Bhaumik", branch: "ICT"},
@@ -74,6 +115,7 @@ exApp.get('/api/student/:id', (req, res) => {
   );
   res.status(200).send(foundStudent);
 })
+
 
 module.exports = exApp
 

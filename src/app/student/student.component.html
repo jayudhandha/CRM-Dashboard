@@ -1,15 +1,11 @@
-<mat-accordion>
-
+<mat-progress-bar *ngIf="isLoading"></mat-progress-bar>
+<mat-accordion *ngIf="students.length > 0" >
   <mat-expansion-panel style="margin-bottom: 20px;" *ngFor="let item of students" (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Marwadi's Brilliant Student: {{item.name}}
       </mat-panel-title>
-      <mat-panel-description>
-        <p *ngIf="panelOpenState; else elseBlock">Click to Hide</p>
-        <ng-template #elseBlock>Click here to see student data</ng-template>
-      </mat-panel-description>
     </mat-expansion-panel-header>
     <p>Name: {{item.name}}</p>
     <p>Branch: {{item.branch}}</p>
@@ -17,7 +13,15 @@
       <li *ngFor="let item of students">{{item.name}} {{item.branch}}</li>
     </ul> -->
     <mat-action-row>
-      <button mat-button color="warn">Delete</button>
+      <button mat-button color="primary" [routerLink]="['/edit',item._id]">Edit</button>
+      <button mat-button color="warn" (click)="onDelete(item._id)">Delete</button>
     </mat-action-row>
   </mat-expansion-panel>
+  <mat-paginator
+    [length]="pageLength"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageOptions"
+    (page)="onPageChange($event)">
+  </mat-paginator>
 </mat-accordion>
+<div class="no-data" *ngIf="students.length == 0">No Students data found!</div>

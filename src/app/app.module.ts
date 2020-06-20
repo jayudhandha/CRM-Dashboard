@@ -16,6 +16,9 @@ import { NewStudentComponent } from './new-student/new-student.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +39,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatFormFieldModule,
     MatCardModule,
     MatButtonModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatProgressBarModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

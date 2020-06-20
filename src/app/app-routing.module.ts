@@ -5,7 +5,9 @@ import { NewStudentComponent } from './new-student/new-student.component';
 
 const routes: Routes = [
   { path: 'students', component: StudentComponent },
-  { path: 'create', component: NewStudentComponent }
+  { path: 'create', component: NewStudentComponent },
+  { path: 'edit/:stdId', component: NewStudentComponent }
+
 ];
 
 @NgModule({
