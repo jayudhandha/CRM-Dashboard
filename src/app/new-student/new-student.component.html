@@ -1,3 +1,4 @@
+<mat-progress-bar *ngIf="isLoading"></mat-progress-bar>
 <mat-card class="card-container">
   <form (submit)="onSave(studentForm)" #studentForm="ngForm">
     <mat-card-header class="card-header">

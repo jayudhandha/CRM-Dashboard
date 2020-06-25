@@ -12,11 +12,23 @@
   color: red
 }
 
-div > a {
+a {
   text-decoration: none;
   color: white;
 }
 
 .header-items {
-  width: 50%;
+  width: 70%;
 }
+
+ul {
+  list-style: none;
+  display: flex;
+}
+
+li {
+  /* Top & Bottom 0px, Left & Right 10px */
+  padding: 0px 10px;
+}
+
+

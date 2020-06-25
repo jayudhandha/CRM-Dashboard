@@ -18,6 +18,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { LoginComponent } from './authentication/login-page/login.component';
+import { SignupComponent } from './authentication/sign-up/signup.component';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     AngBasicsComponent,
     CustomInputComponent,
     StudentComponent,
-    NewStudentComponent
+    NewStudentComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

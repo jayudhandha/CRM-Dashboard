@@ -1,0 +1,35 @@
+<mat-progress-bar *ngIf="isLoading"></mat-progress-bar>
+<mat-card class="card-container">
+  <form (submit)="onSignUp(signUpForm)" #signUpForm="ngForm">
+    <mat-card-subtitle style="font-weight: bold">Sign Up</mat-card-subtitle>
+    <mat-form-field>
+      <input
+      type="email"
+      name="email"
+      ngModel
+      matInput
+      placeholder="E-mail"
+      required
+      email
+      #name="ngModel"
+      >
+      <mat-error *ngIf="name.invalid">Please enter a valid email</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input
+      type="password"
+      name="password"
+      ngModel
+      matInput
+      placeholder="Password"
+      required
+      #password="ngModel"
+      >
+      <mat-error *ngIf="password.invalid">Please enter a valid password</mat-error>
+    </mat-form-field>
+    <mat-card-actions>
+      <button mat-raised-button type="submit">Sign Up</button>
+    </mat-card-actions>
+  </form>
+</mat-card>
