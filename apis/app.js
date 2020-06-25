@@ -1,7 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const exApp = express()
-const Student = require('./models/student')
 const stdRoute = require('./routes/student')
 const authRoute = require('./routes/auth')
 
