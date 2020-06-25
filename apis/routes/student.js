@@ -1,6 +1,6 @@
 var bodyParser = require('body-parser')
 const express = require('express')
-const Student = require('./models/student')
+const Student = require('../models/student-model')
 const stdRoute = express.Router()
 
 // create application/json parser
