@@ -3,6 +3,7 @@ const express = require('express')
 const authRoute = express.Router()
 const User = require('../models/user-schema')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 var jsonParser = bodyParser.json()
 
@@ -32,6 +33,30 @@ authRoute.post('/signup', jsonParser, (req, res) => {
 
 authRoute.post('/login', jsonParser, (req, res) => {
   console.log("Login Credentials : " + JSON.stringify(req.body))
+  User.findOne({email: req.body.email}).then(user => {
+    if(!user) {
+      res.status(404).json({
+        message: "User does not exist"
+      })
+    }
+    return user;
+  }).then(fetcheduser => {
+    console.log("User found: "+ JSON.stringify(fetcheduser))
+    bcrypt.compare(req.body.password, fetcheduser.password).then(passMatch => {
+      if(passMatch) {
+        let token = jwt.sign({ email: req.body.email }, 'mu_secret', { expiresIn: '1h' });
+
+        res.status(200).json({
+          message: "Login Successful",
+          token: token
+        })
+      }
+
+      res.status(403).json({
+        message: "Invalid username/password"
+      })
+    })
+  })
 
   // Logic needs to be added
 

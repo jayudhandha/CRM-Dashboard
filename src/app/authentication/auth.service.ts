@@ -17,4 +17,12 @@ export class AuthService {
     }
     return this.http.post(this.BASE_PATH+"signup", signUpObj);
   }
+
+  onLogin(email, password) {
+    const loginObj: auth = {
+      email: email,
+      password: password
+    }
+    return this.http.post(this.BASE_PATH+"login", loginObj);
+  }
 }

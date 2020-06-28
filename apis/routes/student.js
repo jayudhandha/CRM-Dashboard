@@ -2,12 +2,13 @@ var bodyParser = require('body-parser')
 const express = require('express')
 const Student = require('../models/student-schema')
 const stdRoute = express.Router()
+const authMw = require('../middleware/auth-mw')
 
 // create application/json parser
 var jsonParser = bodyParser.json()
 
 
-stdRoute.post('/addStudent', jsonParser, (req, res) => {
+stdRoute.post('/addStudent', authMw, jsonParser, (req, res) => {
   const std = new Student({
     name : req.body.name,
     branch : req.body.branch
@@ -22,7 +23,7 @@ stdRoute.post('/addStudent', jsonParser, (req, res) => {
 
 })
 
-stdRoute.put('/:id', jsonParser, (req, res) => {
+stdRoute.put('/:id', authMw, jsonParser, (req, res) => {
   console.log("name: " + req.body.name)
   console.log("branch: " + req.body.branch)
   const std = new Student({
@@ -57,13 +58,13 @@ stdRoute.get('/listStudents', (req, res) => {
   })
 })
 
-stdRoute.get('/:id', (req, res) => {
+stdRoute.get('/:id', authMw, (req, res) => {
   Student.findOne({_id: req.params.id}).then(student => {
     res.status(200).json(student);
   })
 })
 
-stdRoute.delete('/:id', (req, res) => {
+stdRoute.delete('/:id', authMw, (req, res) => {
   Student.deleteOne({_id: req.params.id}).then(updatedStudent => {
     console.log(updatedStudent);
     res.status(201).json({
