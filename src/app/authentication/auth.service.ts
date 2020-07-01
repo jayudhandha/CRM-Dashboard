@@ -7,8 +7,26 @@ import { auth } from './auth.model';
 })
 export class AuthService {
   BASE_PATH = 'http://localhost:3000/auth/'
+  private token: string;
+  private isAuthenticated: boolean = false;
 
   constructor(private http: HttpClient) { }
+
+  getToken() {
+    return this.token;
+  }
+
+  setToken(token) {
+    this.token = token
+  }
+
+  getAuthenticated() {
+    return this.isAuthenticated;
+  }
+
+  setAuthenticated(isAuthenticated: boolean) {
+    this.isAuthenticated = isAuthenticated;
+  }
 
   doSignUp(email, password) {
     const signUpObj: auth = {
@@ -23,6 +41,6 @@ export class AuthService {
       email: email,
       password: password
     }
-    return this.http.post(this.BASE_PATH+"login", loginObj);
+    return this.http.post<{message: string, token: string}>(this.BASE_PATH+"login", loginObj);
   }
 }

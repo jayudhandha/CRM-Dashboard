@@ -9,7 +9,7 @@ import { CustomInputComponent } from './custom-input/custom-input.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatInputModule} from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StudentComponent } from './student/student.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NewStudentComponent } from './new-student/new-student.component';
@@ -20,6 +20,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { LoginComponent } from './authentication/login-page/login.component';
 import { SignupComponent } from './authentication/sign-up/signup.component';
+import { AuthInterceptor } from './authentication/auth-interceptor.service';
 
 
 @NgModule({
@@ -47,7 +48,11 @@ import { SignupComponent } from './authentication/sign-up/signup.component';
     MatProgressBarModule,
     MatPaginatorModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

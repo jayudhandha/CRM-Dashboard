@@ -12,7 +12,7 @@ export class StudentComponent implements OnInit {
   panelOpenState = false;
   isLoading = false
   students = [];
-
+  pageIndex=0;
   pageLength = 10;
   pageSize = 2;
   pageOptions = [1,2,5,10]
@@ -35,6 +35,12 @@ export class StudentComponent implements OnInit {
   onPageChange(pageEvn: PageEvent) {
     console.log(pageEvn);
   }
+    // this.pageSize=pageEvn.pageSize
+    // this.pageIndex=pageEvn.pageIndex
+    // this.nameService.getStudents(this.pageSize,this.pageIndex+1).subscribe(data => {
+    //   this.students=data.students;
+    //   this.pageLength=data.maxStudents;
+    // });
 
 
 }

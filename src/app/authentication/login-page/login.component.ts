@@ -22,8 +22,13 @@ export class LoginComponent implements OnInit {
 
     this.authService.onLogin(form.value.email, form.value.password).subscribe(result => {
       console.log(result);
+      this.authService.setToken(result.token)
+      this.authService.setAuthenticated(true);
+      // Write code to route our app to students page
+
     })
 
+    form.resetForm()
   }
 
 }
