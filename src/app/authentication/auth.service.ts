@@ -9,6 +9,7 @@ export class AuthService {
   BASE_PATH = 'http://localhost:3000/auth/'
   private token: string;
   private isAuthenticated: boolean = false;
+  private timerHandler : any;
 
   constructor(private http: HttpClient) { }
 
@@ -41,6 +42,35 @@ export class AuthService {
       email: email,
       password: password
     }
-    return this.http.post<{message: string, token: string}>(this.BASE_PATH+"login", loginObj);
+    return this.http.post<{message: string, token: string, expiresIn: number}>(this.BASE_PATH+"login", loginObj);
+  }
+
+  onLogout() {
+    console.log("Logout occurs...");
+    this.setToken(null);
+    this.setAuthenticated(false);
+    this.deRegisterLogoutTimer();
+  }
+
+  saveAuthLocally(token: string, expiresIn: number) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('expiresIn', expiresIn.toString());
+  }
+
+  readAuthLocally() {
+    return {
+      token: localStorage.getItem('token'),
+      expiresIn: localStorage.getItem('expiresIn')
+    }
+  }
+
+  registerLogoutTimer(expiresIn: number) {
+    this.timerHandler = setTimeout(() => {
+      this.onLogout();
+    }, expiresIn * 1000);
+  }
+
+  deRegisterLogoutTimer() {
+    clearTimeout(this.timerHandler);
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ManageNamesService } from '../manage-names.service';
 import { PageEvent } from '@angular/material/paginator';
+import { AuthService } from '../authentication/auth.service';
 
 @Component({
   selector: 'app-student',
@@ -17,7 +18,7 @@ export class StudentComponent implements OnInit {
   pageSize = 2;
   pageOptions = [1,2,5,10]
 
-  constructor(private nameService: ManageNamesService) { }
+  constructor(private nameService: ManageNamesService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.nameService.getStudents().subscribe(data => this.students = data);
@@ -34,6 +35,10 @@ export class StudentComponent implements OnInit {
 
   onPageChange(pageEvn: PageEvent) {
     console.log(pageEvn);
+  }
+
+  checkAuth() {
+    return this.authService.getAuthenticated();
   }
     // this.pageSize=pageEvn.pageSize
     // this.pageIndex=pageEvn.pageIndex

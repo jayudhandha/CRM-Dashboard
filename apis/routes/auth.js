@@ -48,7 +48,8 @@ authRoute.post('/login', jsonParser, (req, res) => {
 
         res.status(200).json({
           message: "Login Successful",
-          token: token
+          token: token,
+          expiresIn: 3600
         })
       }
 

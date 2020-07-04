@@ -20,4 +20,9 @@ export class AppComponent implements OnInit{
     return this.authService.getAuthenticated()
   }
 
+  doLogout() {
+    // Clear token and authentication boolean
+    this.authService.onLogout();
+  }
+
 }

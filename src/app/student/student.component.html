@@ -12,7 +12,7 @@
     <!-- <ul>
       <li *ngFor="let item of students">{{item.name}} {{item.branch}}</li>
     </ul> -->
-    <mat-action-row>
+    <mat-action-row *ngIf="checkAuth()">
       <button mat-button color="primary" [routerLink]="['/edit',item._id]">Edit</button>
       <button mat-button color="warn" (click)="onDelete(item._id)">Delete</button>
     </mat-action-row>

@@ -21,6 +21,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { LoginComponent } from './authentication/login-page/login.component';
 import { SignupComponent } from './authentication/sign-up/signup.component';
 import { AuthInterceptor } from './authentication/auth-interceptor.service';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { AuthInterceptor } from './authentication/auth-interceptor.service';
     MatButtonModule,
     MatExpansionModule,
     MatProgressBarModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatProgressSpinnerModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
