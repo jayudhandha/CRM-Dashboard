@@ -25,8 +25,12 @@ export class LoginComponent implements OnInit {
       console.log(result);
       this.authService.setToken(result.token)
       this.authService.setAuthenticated(true);
-      this.authService.saveAuthLocally(result.token, result.expiresIn);
-      console.log("Expires in: "+ result.expiresIn);
+      const now = new Date();
+      const expireAt = new Date(now.getTime() + result.expiresIn * 1000);
+
+      this.authService.saveAuthLocally(result.token, expireAt);
+
+      console.log("Token will expires at: " + expireAt);
       this.authService.registerLogoutTimer(result.expiresIn);
 
       this.router.navigate(['/students']);
