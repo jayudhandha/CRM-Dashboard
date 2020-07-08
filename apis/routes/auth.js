@@ -44,7 +44,7 @@ authRoute.post('/login', jsonParser, (req, res) => {
     console.log("User found: "+ JSON.stringify(fetcheduser))
     bcrypt.compare(req.body.password, fetcheduser.password).then(passMatch => {
       if(passMatch) {
-        let token = jwt.sign({ email: req.body.email }, 'mu_secret', { expiresIn: '1h' });
+        let token = jwt.sign({ email: req.body.email, userId: fetcheduser._id }, 'mu_secret', { expiresIn: '1h' });
 
         res.status(200).json({
           message: "Login Successful",

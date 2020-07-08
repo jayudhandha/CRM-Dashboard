@@ -9,15 +9,20 @@ var jsonParser = bodyParser.json()
 
 
 stdRoute.post('/addStudent', authMw, jsonParser, (req, res) => {
+
+  console.log("UserData Object: "+ JSON.stringify(req.userData));
+
   const std = new Student({
     name : req.body.name,
-    branch : req.body.branch
+    branch : req.body.branch,
+    creator: req.userData.userId
   })
 
   std.save().then(createdStudent => {
       res.status(201).json({
         message: "Student added successfully",
-        studentId: createdStudent._id
+        studentId: createdStudent._id,
+        student: createdStudent
       });
     });
 
@@ -29,14 +34,21 @@ stdRoute.put('/:id', authMw, jsonParser, (req, res) => {
   const std = new Student({
     _id: req.params.id,
     name : req.body.name,
-    branch : req.body.branch
+    branch : req.body.branch,
+    creator: req.userData.userId
   })
 
-  Student.updateOne({_id: req.params.id}, std).then(updatedStudent => {
+  Student.updateOne({_id: req.params.id, creator: req.userData.userId}, std).then(updatedStudent => {
     console.log('Updated successfully... : ' + JSON.stringify(updatedStudent))
+    if(updatedStudent.nModified > 0) {
       res.status(201).json({
         message: "Student updated successfully"
       });
+    } else {
+      res.status(401).json({
+        message: "Not authorized to update"
+      });
+    }
     });
 
 })
@@ -65,12 +77,18 @@ stdRoute.get('/:id', authMw, (req, res) => {
 })
 
 stdRoute.delete('/:id', authMw, (req, res) => {
-  Student.deleteOne({_id: req.params.id}).then(updatedStudent => {
-    console.log(updatedStudent);
-    res.status(201).json({
-      message: "Student deleted successfully",
-      studentId: updatedStudent._id
-    });
+  Student.deleteOne({_id: req.params.id, creator: req.userData.userId}).then(deletedStudent => {
+    console.log("Deleted Successfully: "+ JSON.stringify(deletedStudent));
+    if(deletedStudent.n > 0) {
+      res.status(201).json({
+        message: "Student deleted successfully",
+        studentId: deletedStudent._id
+      });
+    } else {
+      res.status(401).json({
+        message: "Not authorized to delete"
+      });
+    }
   })
 })
 
