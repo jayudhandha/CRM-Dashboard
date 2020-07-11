@@ -21,7 +21,11 @@ export class StudentComponent implements OnInit {
   constructor(private nameService: ManageNamesService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.nameService.getStudents().subscribe(data => this.students = data);
+    this.nameService.getStudents().subscribe(data => {
+      console.log(data);
+      this.students = data
+      console.log(this.students)
+    });
   }
 
   onDelete(id) {
@@ -39,6 +43,10 @@ export class StudentComponent implements OnInit {
 
   checkAuth() {
     return this.authService.getAuthenticated();
+  }
+
+  isCreator(creator) {
+    return this.authService.getUserId() === creator;
   }
     // this.pageSize=pageEvn.pageSize
     // this.pageIndex=pageEvn.pageIndex

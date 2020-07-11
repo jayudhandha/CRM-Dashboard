@@ -49,7 +49,8 @@ authRoute.post('/login', jsonParser, (req, res) => {
         res.status(200).json({
           message: "Login Successful",
           token: token,
-          expiresIn: 3600
+          expiresIn: 3600,
+          userId: fetcheduser._id
         })
       }
 

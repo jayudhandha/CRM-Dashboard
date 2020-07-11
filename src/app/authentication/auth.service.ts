@@ -8,10 +8,23 @@ import { auth } from './auth.model';
 export class AuthService {
   BASE_PATH = 'http://localhost:3000/auth/'
   private token: string;
+  private userId: string;
   private isAuthenticated: boolean = false;
   private timerHandler : any;
 
   constructor(private http: HttpClient) { }
+
+  getUserId() {
+    if(this.userId) {
+      return this.userId
+    } else {
+      return this.getAuthLocally().userId;
+    }
+  }
+
+  setUserId(userId: string) {
+    this.userId = userId;
+  }
 
   getToken() {
     return this.token;
@@ -42,32 +55,36 @@ export class AuthService {
       email: email,
       password: password
     }
-    return this.http.post<{message: string, token: string, expiresIn: number}>(this.BASE_PATH+"login", loginObj);
+    return this.http.post<{message: string, token: string, expiresIn: number, userId: string}>(this.BASE_PATH+"login", loginObj);
   }
 
   onLogout() {
     console.log("Logout occurs...");
     this.setToken(null);
+    this.setUserId(null);
     this.setAuthenticated(false);
     this.deRegisterLogoutTimer();
     this.clearStorage();
   }
 
-  saveAuthLocally(token: string, expireAt: Date) {
-    localStorage.setItem('token', token);
-    localStorage.setItem('expireAt', expireAt.toString());
+  saveAuthLocally(data: any) {
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('expireAt', data.expireAt.toString());
+    localStorage.setItem('userId', data.userId);
   }
 
   getAuthLocally() {
     return {
       token: localStorage.getItem('token'),
-      expireAt: new Date(localStorage.getItem('expireAt'))
+      expireAt: new Date(localStorage.getItem('expireAt')),
+      userId: localStorage.getItem('userId')
     }
   }
 
   clearStorage() {
     localStorage.removeItem('token');
     localStorage.removeItem('expireAt');
+    localStorage.removeItem('userId');
   }
 
   autoLogin() {
