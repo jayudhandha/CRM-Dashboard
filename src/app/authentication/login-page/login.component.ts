@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { error } from 'protractor';
 
 @Component({
   selector: 'app-login',
@@ -37,10 +38,11 @@ export class LoginComponent implements OnInit {
 
       this.authService.saveAuthLocally(authObj);
 
-      console.log("Token will expires at: " + expireAt);
       this.authService.registerLogoutTimer(result.expiresIn);
 
       this.router.navigate(['/students']);
+    }, error => {
+      this.isLoading = false;
     })
 
     form.resetForm()

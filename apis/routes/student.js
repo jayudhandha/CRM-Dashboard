@@ -24,6 +24,10 @@ stdRoute.post('/addStudent', authMw, jsonParser, (req, res) => {
         studentId: createdStudent._id,
         student: createdStudent
       });
+    }).catch(() => {
+      res.status(500).json({
+        message: "Unable to save student"
+      });
     });
 
 })
