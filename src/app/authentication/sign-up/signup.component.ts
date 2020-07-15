@@ -23,9 +23,16 @@ export class SignupComponent implements OnInit {
     }
 
     console.log(form.value)
-    this.authService.doSignUp(form.value.email, form.value.password).subscribe(data => {
+    const email = form.value.email
+    const password = form.value.password
+    this.authService.doSignUp(email, password).subscribe(data => {
       console.log(data)
-      this.router.navigate(['/students']);
+      console.log(email, password)
+      this.authService.onLogin(email, password).subscribe(result => {
+        console.log("Login successfull...")
+        this.authService.postLoginActivity(result);
+        this.router.navigate(['/students']);
+      })
     });
 
     form.resetForm()

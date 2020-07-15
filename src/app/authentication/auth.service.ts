@@ -105,6 +105,24 @@ export class AuthService {
     }
   }
 
+  postLoginActivity(result) {
+    this.setToken(result.token)
+    this.setUserId(result.userId);
+    this.setAuthenticated(true);
+    const now = new Date();
+    const expireAt = new Date(now.getTime() + result.expiresIn * 1000);
+
+    const authObj = {
+      token: result.token,
+      expireAt: expireAt,
+      userId: result.userId
+    }
+
+    this.saveAuthLocally(authObj);
+
+    this.registerLogoutTimer(result.expiresIn);
+  }
+
   registerLogoutTimer(expiresIn: number) {
     console.log("Logout will occurs in : "+ expiresIn * 1000)
     this.timerHandler = setTimeout(() => {
