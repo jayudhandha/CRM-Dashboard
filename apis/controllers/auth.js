@@ -29,6 +29,10 @@ exports.loginUser = (req, res) => {
         message: "Invalid username/password"
       })
     })
+  }).catch(error => {
+    res.status(500).json({
+      message: "Error on server side, Please try later."
+    })
   })
 }
 

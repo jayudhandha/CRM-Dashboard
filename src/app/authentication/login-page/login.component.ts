@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { error } from 'protractor';
+import { NotifierService } from 'angular-notifier';
+import { type } from 'os';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,7 @@ import { error } from 'protractor';
 export class LoginComponent implements OnInit {
 
   isLoading = false
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private notifier: NotifierService) { }
 
   ngOnInit(): void {
   }
@@ -24,7 +26,7 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     this.authService.onLogin(form.value.email, form.value.password).subscribe(result => {
       console.log(result);
-
+      this.notifier.notify("success", "Welcome to Student CRM...");
       this.authService.postLoginActivity(result);
       this.router.navigate(['/students']);
     }, error => {

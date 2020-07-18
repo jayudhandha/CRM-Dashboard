@@ -22,6 +22,7 @@ exApp.use((req, res, next) => {
 
 const uri = 'mongodb+srv://kod:iWWKEZEpJd674WUj@cluster0-02u1x.mongodb.net/marwadi?retryWrites=true&w=majority'
 
+
 mongoose
   .connect(
     uri
