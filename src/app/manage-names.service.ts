@@ -2,21 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { student } from './student.model';
 import { Observable } from 'rxjs';
-import { faculty } from './faculty';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root' // This service will be available from root scope it means any component can inject it
 })
 export class ManageNamesService {
-  BASE_PATH = 'http://localhost:3000/api/'
   constructor(private http: HttpClient) { }
 
   getNames() : Observable<student[]> {
-    return this.http.get<student[]>(this.BASE_PATH+'student')
+    return this.http.get<student[]>(environment.API_BASE_PATH+'student')
   }
 
   getStudents() : Observable<student[]> {
-    return this.http.get<student[]>(this.BASE_PATH+'listStudents')
+    return this.http.get<student[]>(environment.API_BASE_PATH+'listStudents')
   }
 
   addStudent(name, branch) {
@@ -25,11 +24,11 @@ export class ManageNamesService {
       name: name,
       branch: branch
     }
-    return this.http.post(this.BASE_PATH+'addStudent', studentObj);
+    return this.http.post(environment.API_BASE_PATH+'addStudent', studentObj);
   }
 
   getStudent(id) {
-    return this.http.get<student>(this.BASE_PATH+id)
+    return this.http.get<student>(environment.API_BASE_PATH+id)
   }
 
   updateStudent(id, name, branch) {
@@ -37,10 +36,10 @@ export class ManageNamesService {
       name: name,
       branch: branch
     }
-    return this.http.put(this.BASE_PATH+id, std)
+    return this.http.put(environment.API_BASE_PATH+id, std)
   }
 
   deleteStudent(id) {
-    return this.http.delete(this.BASE_PATH+id);
+    return this.http.delete(environment.API_BASE_PATH+id);
   }
 }

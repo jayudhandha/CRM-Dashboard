@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  API_BASE_PATH: 'https://student-crm-backend.herokuapp.com/api/',
+  AUTH_BASE_PATH: 'https://student-crm-backend.herokuapp.com/auth/'
 };
 
 /*

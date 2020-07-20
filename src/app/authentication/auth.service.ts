@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { auth } from './auth.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  BASE_PATH = 'http://localhost:3000/auth/'
   private token: string;
   private userId: string;
   private isAuthenticated: boolean = false;
@@ -47,7 +47,7 @@ export class AuthService {
       email: email,
       password: password
     }
-    return this.http.post(this.BASE_PATH+"signup", signUpObj);
+    return this.http.post(environment.AUTH_BASE_PATH+"signup", signUpObj);
   }
 
   onLogin(email, password) {
@@ -55,7 +55,7 @@ export class AuthService {
       email: email,
       password: password
     }
-    return this.http.post<{message: string, token: string, expiresIn: number, userId: string}>(this.BASE_PATH+"login", loginObj);
+    return this.http.post<{message: string, token: string, expiresIn: number, userId: string}>(environment.AUTH_BASE_PATH+"login", loginObj);
   }
 
   onLogout() {
