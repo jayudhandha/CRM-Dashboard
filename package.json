@@ -7,7 +7,6 @@
     "start": "node startup.js",
     "lint": "ng lint",
     "e2e": "ng e2e"
-    // "start-dev": "nodemon server.js"
   },
   "private": true,
   "dependencies": {
