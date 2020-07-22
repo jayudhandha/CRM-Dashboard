@@ -5,11 +5,9 @@
     "ng": "ng",
     "postinstall": "ng build --aot --prod",
     "start": "node startup.js",
-    "build": "ng build",
-    "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "start-dev": "nodemon server.js"
+    "e2e": "ng e2e"
+    // "start-dev": "nodemon server.js"
   },
   "private": true,
   "dependencies": {
