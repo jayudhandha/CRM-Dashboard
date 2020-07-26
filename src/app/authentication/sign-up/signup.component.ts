@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-signup',
@@ -12,7 +13,7 @@ export class SignupComponent implements OnInit {
 
   isLoading = false;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private notifier: NotifierService) { }
 
   ngOnInit(): void {
   }
@@ -28,8 +29,9 @@ export class SignupComponent implements OnInit {
     this.authService.doSignUp(email, password).subscribe(data => {
       console.log(data)
       console.log(email, password)
+      this.notifier.notify("success", "Redirecting to Marwadi Student Portal...");
+
       this.authService.onLogin(email, password).subscribe(result => {
-        console.log("Login successfull...")
         this.authService.postLoginActivity(result);
         this.router.navigate(['/students']);
       })
