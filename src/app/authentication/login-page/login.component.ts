@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     this.authService.onLogin(form.value.email, form.value.password).subscribe(result => {
       console.log(result);
-      this.notifier.notify("success", "Welcome to Student CRM...");
+      this.notifier.notify("success", "Welcome to Marwadi Student Portal...");
       this.authService.postLoginActivity(result);
       this.router.navigate(['/students']);
     }, error => {

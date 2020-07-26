@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { auth } from './auth.model';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class AuthService {
   private isAuthenticated: boolean = false;
   private timerHandler : any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   getUserId() {
     if(this.userId) {
@@ -65,6 +66,7 @@ export class AuthService {
     this.setAuthenticated(false);
     this.deRegisterLogoutTimer();
     this.clearStorage();
+    this.router.navigate(['/logout'])
   }
 
   saveAuthLocally(data: any) {

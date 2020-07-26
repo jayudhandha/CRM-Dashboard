@@ -1,5 +1,5 @@
 <mat-spinner class="spinner" *ngIf="isLoading"></mat-spinner>
-<mat-card class="card-container">
+<mat-card class="card-container" *ngIf="!isLoading">
   <form (submit)="onLogin(loginForm)" #loginForm="ngForm">
     <mat-card-subtitle style="font-weight: bold">Login</mat-card-subtitle>
     <mat-form-field>

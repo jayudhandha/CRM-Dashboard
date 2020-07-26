@@ -14,8 +14,8 @@ export class ManageNamesService {
     return this.http.get<student[]>(environment.API_BASE_PATH+'student')
   }
 
-  getStudents() : Observable<student[]> {
-    return this.http.get<student[]>(environment.API_BASE_PATH+'listStudents')
+  getStudents(pageSize, pageIndex) {
+    return this.http.get<{students: student[], maxStudents: number}>(environment.API_BASE_PATH+'listStudents?pagesize='+pageSize+"&pageindex="+pageIndex)
   }
 
   addStudent(name, branch) {

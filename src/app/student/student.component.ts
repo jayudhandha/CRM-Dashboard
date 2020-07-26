@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ManageNamesService } from '../manage-names.service';
 import { PageEvent } from '@angular/material/paginator';
 import { AuthService } from '../authentication/auth.service';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-student',
@@ -18,27 +19,45 @@ export class StudentComponent implements OnInit {
   pageSize = 2;
   pageOptions = [1,2,5,10]
 
-  constructor(private nameService: ManageNamesService, private authService: AuthService) { }
+  constructor(private nameService: ManageNamesService, private authService: AuthService, private notifier: NotifierService) { }
 
   ngOnInit(): void {
-    this.nameService.getStudents().subscribe(data => {
+    this.pageIndex = parseInt(localStorage.getItem('pageIndex'))
+    this.pageSize = parseInt(localStorage.getItem('pageSize'))
+
+    this.nameService.getStudents(this.pageSize, this.pageIndex+1).subscribe(data => {
       console.log(data);
-      this.students = data
+      this.students = data.students
+      this.pageLength=data.maxStudents;
       console.log(this.students)
     });
   }
 
-  onDelete(id) {
+  onDelete(id, name) {
     this.isLoading = true
 
     this.nameService.deleteStudent(id).subscribe(data => {
-      this.nameService.getStudents().subscribe(data => this.students = data);
+      this.nameService.getStudents(this.pageSize, 1).subscribe(data => {
+        this.students = data.students;
+        this.pageLength=data.maxStudents;
+        this.pageIndex = 0; // reset page index once we delete any data
+      });
+      this.notifier.notify("success", "Data of "+name+" deleted...");
     })
     this.isLoading = false
   }
 
   onPageChange(pageEvn: PageEvent) {
     console.log(pageEvn);
+    this.pageSize=pageEvn.pageSize
+    this.pageIndex=pageEvn.pageIndex
+    localStorage.setItem('pageIndex', this.pageIndex+"");
+    localStorage.setItem('pageSize', this.pageSize+"");
+
+    this.nameService.getStudents(this.pageSize,this.pageIndex+1).subscribe(data => {
+      this.students=data.students;
+      this.pageLength=data.maxStudents;
+    });
   }
 
   checkAuth() {
@@ -48,12 +67,7 @@ export class StudentComponent implements OnInit {
   isCreator(creator) {
     return this.authService.getUserId() === creator;
   }
-    // this.pageSize=pageEvn.pageSize
-    // this.pageIndex=pageEvn.pageIndex
-    // this.nameService.getStudents(this.pageSize,this.pageIndex+1).subscribe(data => {
-    //   this.students=data.students;
-    //   this.pageLength=data.maxStudents;
-    // });
+
 
 
 }

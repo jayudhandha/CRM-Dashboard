@@ -5,14 +5,15 @@ import { NewStudentComponent } from './new-student/new-student.component';
 import { LoginComponent } from './authentication/login-page/login.component';
 import { SignupComponent } from './authentication/sign-up/signup.component';
 import { AuthGuard } from './authentication/auth.guard';
+import { LogoutPageComponent } from './logout-page/logout-page.component';
 
 const routes: Routes = [
   { path: 'students', component: StudentComponent },
   { path: 'create', component: NewStudentComponent, canActivate: [AuthGuard] },
   { path: 'edit/:stdId', component: NewStudentComponent, canActivate: [AuthGuard]  },
   { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent }
-
+  { path: 'signup', component: SignupComponent },
+  { path: 'logout', component: LogoutPageComponent}
 
 ];
 

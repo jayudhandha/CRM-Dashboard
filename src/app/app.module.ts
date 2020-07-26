@@ -20,6 +20,7 @@ import { ErrorInterceptor } from './authentication/error-interceptor.service';
 import { ErrorPopupComponent } from './error-popup/error-popup.component';
 import { AngularMaterial } from './angular-material.module';
 import { NotifierModule, NotifierOptions } from "angular-notifier";
+import { LogoutPageComponent } from './logout-page/logout-page.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -72,6 +73,7 @@ const customNotifierOptions: NotifierOptions = {
     NewStudentComponent,
     LoginComponent,
     SignupComponent,
+    LogoutPageComponent,
     ErrorPopupComponent
   ],
   imports: [
