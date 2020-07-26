@@ -13,14 +13,14 @@ export class AuthGuard implements CanActivate {
     Promise<boolean | import("@angular/router").UrlTree> {
       const isAuth = this.authService.getAuthenticated();
 
+      // Clear pagination related localstorage
+      localStorage.removeItem('pageIndex');
+      localStorage.removeItem('pageSize');
+
       if(!isAuth) {
         console.log('User is not logged in');
         this.router.navigate(['/login']);
       }
-
-      // Clear pagination related localstorage
-      localStorage.removeItem('pageIndex');
-      localStorage.removeItem('pageSize');
 
       return true;
   }

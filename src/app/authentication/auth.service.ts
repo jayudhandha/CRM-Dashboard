@@ -87,6 +87,8 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('expireAt');
     localStorage.removeItem('userId');
+    localStorage.removeItem('pageIndex');
+    localStorage.removeItem('pageSize');
   }
 
   autoLogin() {

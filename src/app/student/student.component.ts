@@ -23,8 +23,12 @@ export class StudentComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.pageIndex = parseInt(localStorage.getItem('pageIndex'))
-    this.pageSize = parseInt(localStorage.getItem('pageSize'))
+    if(localStorage.getItem('pageIndex')) {
+      this.pageIndex = parseInt(localStorage.getItem('pageIndex'))
+    }
+    if(localStorage.getItem('pageSize')) {
+      this.pageSize = parseInt(localStorage.getItem('pageSize'))
+    }
 
     this.nameService.getStudents(this.pageSize, this.pageIndex+1).subscribe(data => {
       this.isLoading = false;

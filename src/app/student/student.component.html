@@ -1,4 +1,4 @@
-<mat-progress-bar *ngIf="isLoading"></mat-progress-bar>
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 <mat-accordion *ngIf="students.length > 0 && !isLoading">
   <mat-expansion-panel style="margin-bottom: 20px;" *ngFor="let item of students" (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false">
@@ -25,4 +25,4 @@
     (page)="onPageChange($event)">
   </mat-paginator>
 </mat-accordion>
-<div class="no-data" *ngIf="students.length == 0">No Students data found!</div>
+<div class="no-data" *ngIf="students.length == 0 && !isLoading">No Students data found!</div>
